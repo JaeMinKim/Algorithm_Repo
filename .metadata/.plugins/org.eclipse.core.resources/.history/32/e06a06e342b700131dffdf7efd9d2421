@@ -1,0 +1,30 @@
+package com.lge.jjaem.rect.process;
+
+import java.awt.Point;
+
+public class RectProcess {
+	/*
+	 * member val
+	 */
+	private int mPointsMap[][];
+	
+		
+	/*
+	 * constructor
+	 */
+	public RectProcess() {
+		// TODO Auto-generated constructor stub
+		this.mPointsMap = new int[10][10];
+	}
+	
+	/*
+	 * getter & setter
+	 */
+
+	/*
+	 * member method
+	 */
+	public boolean isRect(Point p1, Point p2, Point p3, Point p4){
+		return false;
+	}
+}

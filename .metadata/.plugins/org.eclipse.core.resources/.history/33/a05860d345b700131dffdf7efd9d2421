@@ -1,0 +1,10 @@
+package com.lge.jjaem.rect.util;
+
+import java.util.List;
+
+public class IOManagerUtil {
+	public static List<String> fileReadFromFileByLine(String filePath){
+		return null;
+	}
+
+}

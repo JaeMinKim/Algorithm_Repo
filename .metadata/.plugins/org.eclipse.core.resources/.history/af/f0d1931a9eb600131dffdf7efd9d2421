@@ -1,0 +1,20 @@
+package com.lge.jjaem.rect.model;
+
+public class Rect {
+	/*
+	 * member val
+	 */
+	
+	/*
+	 * member method
+	 */
+	
+	/*
+	 * constructor
+	 */
+	
+	/*
+	 * getter & setter
+	 */
+
+}

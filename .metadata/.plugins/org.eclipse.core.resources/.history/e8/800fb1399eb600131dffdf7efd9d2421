@@ -1,0 +1,22 @@
+package com.lge.jjaem.rect.model;
+
+import java.util.ArrayList;
+
+public class Rect {
+	/*
+	 * member val
+	 */
+	private List<Point> mRectPointList = new ArrayList<Point>();
+	/*
+	 * member method
+	 */
+	
+	/*
+	 * constructor
+	 */
+	
+	/*
+	 * getter & setter
+	 */
+
+}
