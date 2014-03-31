@@ -3,6 +3,7 @@ package com.lge.jjaem.rect.process;
 import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,11 +14,12 @@ public class RectProcess {
 	/*
 	 * member val
 	 */
-	private	int				mPointsMap[][];
-	private	List<Point>		mTotalPointsList;
-	private	String			mInputFilePath;
-	private	int				mInputRectCnt;
-	private	List<String>	mInputFileDataStringList;
+	private	HashMap<Point, Integer>	mPointsMap;
+	private	List<Point>				mTotalPointsList;
+	private	String					mInputFilePath;
+	private	int						mInputRectCnt;
+	private	List<String>			mInputFileDataStringList;
+	private	int						mMaxRectArea;
 	
 		
 	/*
@@ -25,10 +27,12 @@ public class RectProcess {
 	 */
 	public RectProcess(String inputFilePath) {
 		// TODO Auto-generated constructor stub
-		this.mInputFilePath = inputFilePath;
+		this.mPointsMap = new HashMap<Point, Integer>();
 		this.mTotalPointsList = new ArrayList<Point>();
-		this.mInputFileDataStringList = null;
+		this.mInputFilePath = inputFilePath;
 		this.mInputRectCnt = 0;
+		this.mInputFileDataStringList = null;
+		this.mMaxRectArea = 0;
 	}
 	
 	/*
@@ -56,9 +60,15 @@ public class RectProcess {
 		
 		Iterator<String> inputFileDataListItor = this.mInputFileDataStringList.iterator();
 		
+		/*
+		 * get
+		 */
 		if (inputFileDataListItor.hasNext())
 			this.mInputRectCnt = Integer.parseInt(inputFileDataListItor.next());
 		
+		/*
+		 *  make rect data
+		 */
 		while(inputFileDataListItor.hasNext()){
 			String inputString = inputFileDataListItor.next();
 			String tokenInputArray[] = inputString.split(" ");
@@ -66,8 +76,28 @@ public class RectProcess {
 			RectModel rect = new RectModel(new Point(Integer.parseInt(tokenInputArray[0]), Integer.parseInt(tokenInputArray[1])),
 					new Point(Integer.parseInt(tokenInputArray[2]), Integer.parseInt(tokenInputArray[3])));
 			
+			this.mMaxRectArea = (this.mMaxRectArea < rect.getRectAaea()) ? rect.getRectAaea() : this.mMaxRectArea;
 			
+			Iterator<Point> pointsItor = rect.getRectPointList().iterator();
+			while(pointsItor.hasNext()){
+				Point tmpPoint = pointsItor.next();
+				
+				if (this.mPointsMap.containsKey(tmpPoint)){
+					int tmpCnt = this.mPointsMap.get(tmpPoint);
+					this.mPointsMap.put(tmpPoint, (tmpCnt+ 1));
+				}
+				else if (!this.mPointsMap.containsKey(pointsItor.next())){
+					this.mPointsMap.put(tmpPoint, 1);
+				}
+			}
 			
+			pointsItor = rect.getEdgePointList().iterator();
+			while(pointsItor.hasNext()){
+				Point tmpPoint = pointsItor.next();
+				
+				int tmpCnt = this.mPointsMap.get(tmpPoint);
+				this.mPointsMap.put(tmpPoint, (tmpCnt+ 1));
+			}
 		}
 		
 	}
