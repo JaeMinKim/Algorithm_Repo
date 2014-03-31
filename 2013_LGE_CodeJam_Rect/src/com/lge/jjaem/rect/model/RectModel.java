@@ -16,12 +16,11 @@ public class RectModel {
 	/*
 	 * constructor
 	 */
-	public RectModel() {
-		// TODO Auto-generated constructor stub
-	}
-	
 	public RectModel(Point leftDownPoint, Point rightUpPoint){
+		this.mLeftDownPoint = leftDownPoint;
+		this.mRightUpPoint = rightUpPoint;
 		
+		this.calRectPoints();
 	}
 	
 	/*

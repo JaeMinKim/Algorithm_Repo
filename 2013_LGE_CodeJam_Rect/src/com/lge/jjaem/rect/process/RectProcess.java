@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.lge.jjaem.rect.model.RectModel;
 import com.lge.jjaem.rect.util.IOManagerUtil;
 
 public class RectProcess {
@@ -54,6 +55,20 @@ public class RectProcess {
 			return;
 		
 		Iterator<String> inputFileDataListItor = this.mInputFileDataStringList.iterator();
+		
+		if (inputFileDataListItor.hasNext())
+			this.mInputRectCnt = Integer.parseInt(inputFileDataListItor.next());
+		
+		while(inputFileDataListItor.hasNext()){
+			String inputString = inputFileDataListItor.next();
+			String tokenInputArray[] = inputString.split(" ");
+			
+			RectModel rect = new RectModel(new Point(Integer.parseInt(tokenInputArray[0]), Integer.parseInt(tokenInputArray[1])),
+					new Point(Integer.parseInt(tokenInputArray[2]), Integer.parseInt(tokenInputArray[3])));
+			
+			
+			
+		}
 		
 	}
 	
