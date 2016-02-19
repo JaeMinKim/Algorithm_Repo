@@ -1,3 +1,5 @@
+// https://algospot.com/judge/problem/read/PINBALL
+
 #include <iostream>
 #include <cmath>
 #include <vector>
