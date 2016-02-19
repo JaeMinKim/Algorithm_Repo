@@ -2,31 +2,45 @@
 
 using namespace std;
 
-int numSplit(int sumNum, int maxNum)
+int numSplit(int sum, int max)
 {
-	int cnt = 0;
+	int result = 0;
 
-	if ( sumNum == maxNum)
+	if ( max > sum )
+		max = sum;
+
+	cout<< " "<< max;
+
+	if ( max == sum )
 	{
-		cnt ++;
+		cout<< endl;
+		result++;
+
+		if (max > 1)
+			max--;
 	}
-	else if ( sumNum > maxNum )
+
+	if ( sum > max )
 	{
+		result += numSplit( (sum-max), max );
 	}
 
+	while ( max > 1 )
+		result += numSplit( (sum-max), --max );
 
-	return cnt;
+
+	return result;
 }
 
 int main(void)
 {
-	int sumNum = 0;
-	int maxNum = 1;
+	int sum = 0;
+	int max = 1;
 
 	cout<< "input(sum max) : ";
-	cin>> sumNum>> maxNum;
+	cin>> sum>> max;
 
-	cout<< "result : "<< numSplit(sumNum, maxNum)<< endl;
+	cout<< "result : "<< numSplit(sum, max)<< endl;
 
 	return 0;
 }
