@@ -11,7 +11,7 @@ struct Point
 		double _x;
 		double _y;
 	public:
-		Point(double x, double y) : _x(x), _y(y) {}
+		Point(double x = 0, double y = 0) : _x(x), _y(y) {}
 		double getX() { return _x; }
 		double getY() { return _y; }
 
@@ -75,11 +75,31 @@ class Ball
 {
 	private:
 		Point _currPoint;
+		Point _prevPoint;
 		Point _vector;
+	protected:
+		double getReflectionX(Point c);
+		double getReflectionY(Point c);
 	public:
-		Ball(Point currPoint, Point vector) : _currPoint(currPoint), _vector(vector) {}
-		Point getNextPoint();
+		Ball(Point currPoint, Point vector) : _currPoint(currPoint), _prevPoint(currPoint), _vector(vector) {}
+		Point getReflectionPoint(Point c);
 };
+double Ball::getReflectionX(Point c)
+{
+	double reflectionX = 0;
+	
+	reflectionX = ( (2*_currPoint.getX())
+		+ ( (_prevPoint.getX()*(_currPoint.getY()-c.getY()) )/(_currPoint.getX()-c.getX()) )
+		) / ( );
+
+}
+double Ball::getReflectionY(Point c)
+{
+}
+Point Ball::getReflectionPoint(Point c)
+{
+	Point reflectionPoint;
+}
 
 
 
