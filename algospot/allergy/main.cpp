@@ -27,27 +27,54 @@ void end_du(void)
 class FoodContainer{
 	private:
 		int m_size;
-		unsigned long long m_eat_table;
+		unsigned long long m_eat_table[MAX_FOOD_CNT];
 
 	public:
 		FoodContainer():m_size(0) {}
 		~FoodContainer() {}
 		
 		void clear();
-		int empty();
 		int size();
-		double begin();
-		double end();
-		void push_back();
+		unsigned long long get(int i);
+		void push_back(unsigned long long _food_val);
 		void pop_back();
-		int last_pos();
 };
+
+void FoodContainer::clear()
+{
+	m_size = 0;
+}
+
+int FoodContainer::size()
+{
+	return m_size;
+}
+
+unsigned long long FoodContainer::get(int _i)
+{
+	if (_i >= m_size)
+		return 0;
+
+	return m_eat_table[_i];
+}
+
+void FoodContainer::push_back(unsigned long long _food_val)
+{
+	m_eat_table[m_size] = _food_val;
+	m_size += 1;
+}
+
+void FoodContainer::pop_back()
+{
+	m_size -= 1;
+}
 
 class Allergy{
 	private:
 		map <int , unsigned long long> *m_food_table;
 		unsigned long long m_exp_result;
 		vector< pair<int, unsigned long long> > m_select_food;
+		FoodContainer m_food_container;
 		int m_total_food_cnt;
 	public:
 		Allergy(int _total_food_cnt, map <int , unsigned long long> *_food_table, unsigned long long _exp_result):m_total_food_cnt(_total_food_cnt), m_food_table(_food_table), m_exp_result(_exp_result) {}
@@ -58,6 +85,7 @@ class Allergy{
 			m_total_food_cnt = 0;
 			m_exp_result = 0;
 			m_select_food.clear();
+			m_food_container.clear();
 			m_food_table->clear();
 		}
 
@@ -65,15 +93,19 @@ class Allergy{
 		{
 			unsigned long long _check_result = 0;
 
-			if (m_select_food.empty())
+			//if (m_select_food.empty())
+			if (m_food_container.size() == 0)
 				return 0;
 
-			for (vector< pair<int, unsigned long long> >::iterator it = m_select_food.begin(); it != m_select_food.end(); ++it)
-				_check_result |= it->second;
+			//for (vector< pair<int, unsigned long long> >::iterator it = m_select_food.begin(); it != m_select_food.end(); ++it)
+			for (int i=0; i<m_food_container.size(); i++)
+				//_check_result |= it->second;
+				_check_result |= m_food_container.get(i);
 
 			// check
 			if (_check_result == m_exp_result)
-				return m_select_food.size();
+				//return m_select_food.size();
+				return m_food_container.size();
 
 			return 0;
 		}
