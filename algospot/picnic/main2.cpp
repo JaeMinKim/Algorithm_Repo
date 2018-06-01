@@ -1,6 +1,7 @@
 // https://algospot.com/judge/problem/read/PICNIC
 
 #include <iostream>
+#include <string.h>
 
 using namespace std;
 
