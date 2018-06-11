@@ -19,7 +19,6 @@ class FindFriend{
             // init table
             memset(&m_friendTable, 0, sizeof(int)*10*10);
             memset(&m_visitTable, 0, sizeof(int)*10);
-            m_visitTable[0] = 1;
             m_ret = 0;
             m_findCnt = 0;
         }
@@ -39,7 +38,30 @@ class FindFriend{
         }
 
         void findFriendCnt(int here = 0) {
-            findFriendCnt();
+            m_visitTable[here] = 1;
+
+            for (int there = here + 1; there < m_stdCnt; ++there)
+            {
+                if (m_friendTable[here][there] == 0 || m_visitTable[there] == 1)
+                    continue;
+
+                m_findCnt++;
+                m_visitTable[there] = 1;
+
+                for (int nextHere = here; nextHere < m_stdCnt; ++nextHere)
+                {
+                    if (m_visitTable[nextHere] == 0)
+                        findFriendCnt(nextHere);
+                }
+
+                if (m_findCnt == m_stdCnt / 2)
+                    m_ret++;
+
+                m_visitTable[there] = 0;
+                m_findCnt--;
+            }
+
+            m_visitTable[here] = 0;
         }
 
         void printRet(void) {
@@ -50,14 +72,17 @@ class FindFriend{
 int main(void)
 {
     int testCase = 0;
-    // cin>> testCase;
+     cin>> testCase;
 
-    // while(testCase--) {
+    if (testCase == 0)
+        cout<< testCase<< endl;
+
+    while(testCase--) {
         FindFriend findFriend;
         findFriend.inputData();
         findFriend.findFriendCnt();
         findFriend.printRet();
-    // }
+    }
 
     return 0;
 }
