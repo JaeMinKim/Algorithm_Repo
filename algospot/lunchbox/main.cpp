@@ -49,10 +49,8 @@ int main(void)
             int tmp;
             cin >> tmp;
             boxArr[i].setEatT(tmp);
-        }
-
-        for (int i = 0; i < boxCnt; ++i)
             pq.push(boxArr[i]);
+        }
 
         int expLT = 0;
         int totalMwT = 0;
@@ -68,7 +66,6 @@ int main(void)
         }
         cout << expLT << endl;
     }
-
     return 0;
 }
 
