@@ -1,7 +1,6 @@
 // https://algospot.com/judge/problem/read/LUNCHBOX
 
 #include <iostream>
-#include <string>
 #include <vector>
 #include <queue>
 
@@ -21,53 +20,70 @@ class Box{
 
 struct BoxCmp {
     bool operator()(Box a, Box b) {
-        double aRate = ( a.getMwT() / a.getEatT() ) * ( a.getEatT() + a.getMwT() );
-        double bRate = ( b.getMwT() / b.getEatT() ) * ( b.getEatT() + b.getMwT() );
-        return ( aRate < bRate );
+        return a.getEatT() < b.getEatT();
     }
 };
 
 int main(void)
 {
     priority_queue<Box, vector<Box>, BoxCmp> pq;
+    Box boxArr[10000];
 
-    int boxCnt = 0;
+    int testCnt = 0;
+    cin>> testCnt;
 
-    cin>> boxCnt;
+    while (testCnt--)
+    {
+        int boxCnt = 0;
+        cin >> boxCnt;
 
-    Box boxArr[boxCnt];
+        for (int i = 0; i < boxCnt; ++i)
+        {
+            int tmp;
+            cin >> tmp;
+            boxArr[i].setMwT(tmp);
+        }
 
-    for (int i=0; i<boxCnt; ++i) {
-        int tmp;
-        cin>> tmp;
-        boxArr[i].setMwT(tmp);
+        for (int i = 0; i < boxCnt; ++i)
+        {
+            int tmp;
+            cin >> tmp;
+            boxArr[i].setEatT(tmp);
+        }
+
+        for (int i = 0; i < boxCnt; ++i)
+            pq.push(boxArr[i]);
+
+        int expLT = 0;
+        int totalMwT = 0;
+        for (int i = 0; i < boxCnt; ++i)
+        {
+            Box box = pq.top();
+            pq.pop();
+
+            if ((expLT - totalMwT) < (box.getMwT() + box.getEatT()))
+                expLT = totalMwT + box.getMwT() + box.getEatT();
+
+            totalMwT += box.getMwT();
+        }
+        cout << expLT << endl;
     }
-    
-    for (int i=0; i<boxCnt; ++i) {
-        int tmp;
-        cin>> tmp;
-        boxArr[i].setEatT(tmp);
-    }
 
-    for (int i=0; i<boxCnt; ++i) {
-        pq.push(boxArr[i]);
-    }
-
-    for (int i=0; i<boxCnt; ++i) {
-        Box box = pq.top();
-        pq.pop();
-        cout << box.getMwT();
-    }
-    
     return 0;
 }
 
 /*
-2
+4
 3
 2 2 2
 2 2 2
 3
 1 2 3
 1 2 1
+2
+1 100
+100 1
+2
+1 2
+4 4
 */
